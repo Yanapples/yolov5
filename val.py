@@ -30,6 +30,12 @@ import numpy as np
 import torch
 from tqdm import tqdm
 
+#region Bandaid for trying to load weights trained on colab
+import pathlib
+temp = pathlib.PosixPath
+pathlib.PosixPath = pathlib.WindowsPath
+#endregion
+
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
@@ -602,3 +608,4 @@ def main(opt):
 if __name__ == "__main__":
     opt = parse_opt()
     main(opt)
+    pathlib.PosixPath = temp

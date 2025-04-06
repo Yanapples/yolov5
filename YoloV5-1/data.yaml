@@ -1,0 +1,17 @@
+names:
+- Abhigya
+- Branson
+- Diana
+- Donavan
+- Glenda
+- YanYi
+nc: 6
+roboflow:
+  license: CC BY 4.0
+  project: yolov5-luijt
+  url: https://universe.roboflow.com/intelligentsystemsdesign/yolov5-luijt/dataset/1
+  version: 1
+  workspace: intelligentsystemsdesign
+test: ../test/images
+train: YoloV5-1/train/images
+val: YoloV5-1/valid/images

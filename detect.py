@@ -37,6 +37,12 @@ from pathlib import Path
 
 import torch
 
+#region Bandaid for trying to load weights trained on colab
+import pathlib
+temp = pathlib.PosixPath
+pathlib.PosixPath = pathlib.WindowsPath
+#endregion
+
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
@@ -287,7 +293,12 @@ def run(
                     cv2.namedWindow(str(p), cv2.WINDOW_NORMAL | cv2.WINDOW_KEEPRATIO)  # allow window resize (Linux)
                     cv2.resizeWindow(str(p), im0.shape[1], im0.shape[0])
                 cv2.imshow(str(p), im0)
-                cv2.waitKey(1)  # 1 millisecond
+                # cv2.waitKey(1)  # 1 millisecond
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    pathlib.PosixPath = temp
+                    cv2.destroyAllWindows()
+                    break
+                
 
             # Save results (image with detections)
             if save_img:
@@ -319,10 +330,11 @@ def run(
         LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}{s}")
     if update:
         strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
+        
 
 
 def parse_opt():
-    """
+    """z
     Parse command-line arguments for YOLOv5 detection, allowing custom inference options and model configurations.
 
     Args:
