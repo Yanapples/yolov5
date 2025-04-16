@@ -15,12 +15,14 @@ print(f"Loaded {len(known_face_names)} faces from database.")
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Using device: {device}")
 
-model = YOLO('yolov5n.pt')
+model = YOLO('best_face_detection_yolov5nu.pt')
 model.to(device)
 
 # Initialize video
 video_path = "input_video.mp4"
 video = cv2.VideoCapture(video_path)
+fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+out = cv2.VideoWriter("output_yolov5n_HOG.mp4", fourcc, 20.0, (720,720))
 
 frame_count = 0
 RECOGNITION_INTERVAL = 1  # Only do face recognition every N frames
@@ -104,6 +106,7 @@ while True:
     cv2.putText(frame,f"FPS :{'%s' % float('%.4g' % average_fps)}" , (0,90) , cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0), 2, cv2.LINE_AA)
         
     cv2.imshow('YOLOv5 + HOG', frame)
+    out.write(frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
