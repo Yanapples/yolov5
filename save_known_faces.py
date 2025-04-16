@@ -6,6 +6,7 @@ import os
 import pickle
 
 known_faces_dir = 'images_processed'
+# known_faces_dir = f"C:/Users/Yanny/source/repos/Computer-Vision-No-Deep-Learning/images_processed"
 
 known_face_encodings = []
 known_face_names = []
@@ -20,8 +21,5 @@ for classname in os.listdir(known_faces_dir):
             known_face_encodings.append(face_encodings[0])
             known_face_names.append(classname)
             
-with open('known_face_encodings.pickle', 'wb') as file:
-    pickle.dump(known_face_encodings, file)
-    
-with open('known_face_names.pickle', 'wb') as file:
-    pickle.dump(known_face_names, file)
+with open('yolov8_db.pickle', 'wb') as file:
+    pickle.dump((known_face_encodings, known_face_names), file)

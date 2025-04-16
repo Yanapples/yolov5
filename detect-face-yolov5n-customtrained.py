@@ -5,9 +5,7 @@ import numpy as np
 import os
 import pickle
 
-model = YOLO('yolov5n.pt')
-
-known_faces_dir = 'images_processed'
+model = YOLO('best_face_detection_yolov5n.pt')
 
 known_face_encodings = []
 known_face_names = []
@@ -58,10 +56,12 @@ while True:
                         
                         cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 0, 255), cv2.FILLED)
                         
-                        confidence = box.conf[0]
-                        cv2.putText(frame, f'{name} {confidence:.2f}', (left, bottom - 10), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 2)
+                        # confidence = box.conf[0]
+                        # cv2.putText(frame, f'{name} {confidence:.2f}', (left, bottom - 10), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255, 255, 255), 2)
+                        font = cv2.FONT_HERSHEY_DUPLEX
+                        cv2.putText(frame, name, (left+6, bottom-6), font, 1.0, (255, 255, 255), 1)
                     
-    cv2.imshow('YOLOv5n Object Detection', frame)
+    cv2.imshow('YOLOv5n Object Detection with face-recognition Enhancement', frame)
     
     if cv2.waitKeyEx(1) & 0xFF == ord('q'):
         break
