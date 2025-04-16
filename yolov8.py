@@ -42,13 +42,7 @@ while True:
             # Convert box to int coordinates
             x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
 
-            person_id = box.id  # Unique ID of the tracked person (if available)
-
-            # Draw bounding box (optional)
-            # cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-
             name = None
-            
 
             if do_face_recognition:
                 # Crop person region from the frame
